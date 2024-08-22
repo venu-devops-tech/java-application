@@ -6,14 +6,14 @@ pipeline {
     }
 
     environment {
-        SNAP_REPO = "vprofile-snapshot"
+        SNAP_REPO = "java-app-snapshot"
         NEXUS_USER = "admin"
-        NEXUS_PASS = "admin"
-        RELEASE_REPO = "vprofile-release"
-        CENTRAL_REPO = "vprofile-maven-central"
-        NEXUSIP = "172.31.21.161"
+        NEXUS_PASS = "admin123"
+        RELEASE_REPO = "java-app-release"
+        CENTRAL_REPO = "java-app-maven-central"
+        NEXUSIP = "172.31.30.143"
         NEXUSPORT = "8081"
-        NEXUS_GRP_REPO = "vprofile-maven-group"
+        NEXUS_GRP_REPO = "java-app-maven-group"
         NEXUS_LOGIN = "nexuslogin"
         SONARSERVER = 'SonarCloud'
         SONARSCANNER = 'sonarscanner'    }
@@ -68,24 +68,24 @@ pipeline {
                }
             }
         }
-        // stage("upload Artifacts") {
-        //     steps {
-        //         nexusArtifactUploader(
-        //            nexusVersion: 'nexus3',
-        //            protocol: 'http',
-        //            nexusUrl: "${NEXUSIP}:${NEXUSPORT}",
-        //            groupId: 'QA',
-        //            version: "${env.BUILD_ID}-${env.BUILD_TIMESTAMP}",
-        //            repository: "$RELEASE_REPO",
-        //            credentialsId: "${NEXUS_LOGIN}",
-        //            artifacts: [
-        //              [artifactId: 'vproapp',
-        //               classifier: '',
-        //               file: 'target/vprofile-v2.war',
-        //               type: 'war']
-        //              ]
-        //          )
-        //     }
-        // }
+        stage("upload Artifacts") {
+            steps {
+                nexusArtifactUploader(
+                   nexusVersion: 'nexus3',
+                   protocol: 'http',
+                   nexusUrl: "${NEXUSIP}:${NEXUSPORT}",
+                   groupId: 'QA',
+                   version: "${env.BUILD_ID}-${env.BUILD_TIMESTAMP}",
+                   repository: "$RELEASE_REPO",
+                   credentialsId: "${NEXUS_LOGIN}",
+                   artifacts: [
+                     [artifactId: 'javaapp',
+                      classifier: '',
+                      file: 'target/javaapp.war',
+                      type: 'war']
+                     ]
+                 )
+            }
+        }
     }
 }  
