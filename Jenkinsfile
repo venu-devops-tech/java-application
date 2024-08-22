@@ -81,7 +81,7 @@ pipeline {
                    artifacts: [
                      [artifactId: 'javaapp',
                       classifier: '',
-                      file: 'target/javaapp.war',
+                      file: 'target/javaapp-v2.war',
                       type: 'war']
                      ]
                  )
